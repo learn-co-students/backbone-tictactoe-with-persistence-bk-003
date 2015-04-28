@@ -1,5 +1,3 @@
 (function () {
-  var app = window.app = {};
-  var gameview = new GameView();
-  gameview.render();
+  var gameview = new app.GameView();
 })()

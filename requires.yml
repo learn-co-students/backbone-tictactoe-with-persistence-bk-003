@@ -1,0 +1,9 @@
+# A list of javascript files required for the project, in dependency order
+javascripts:
+  files:
+    - js/views/gameview.js
+    - js/models/game.js
+    - js/lib/jasmine-jquery.js
+  specs:
+    # - spec/gameview.spec.js
+    - spec/game.spec.js
