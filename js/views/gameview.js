@@ -64,8 +64,8 @@
 			this.clearBoard();
 		},
 
-		win : function() {
-			alert("You Won");
+		win : function(player) {
+			alert("Player " + player + " Won!");
 			this.clearBoard();
 		},
 
