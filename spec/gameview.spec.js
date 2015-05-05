@@ -1,31 +1,71 @@
-// THESE ARE THE TESTS FOR OO, NEED TO WRITE BACKBONE TESTS
 'use strict';
 describe('board', function() {
-  // you should have 9 elements on the page
-  // on the next line, put the jquery selector to find those elements
-  // replace with your jquery selector
-  var selector = ".small-box"
-  var board;
-  var game;
   beforeEach(function() {
-    board = new Board();
-    game = new Game();
+
   });
 
-  // the specs with xdescribe are suggested but not required functions
-  xdescribe( "#createRowArray", function() {
-    it("should do return an array of size x filled the element passed to it", function() {
-      expect(board.createRowArray(3, "<tr>")).toEqual(["<tr>", "<tr>", "<tr>"]);
+  describe( "#initialize", function() {
+    it("should set the game property of the view to be an instance of the game model", function() {
+      var gameView = new app.GameView;
+      expect(gameView.game).not.toBeUndefined();
     });     
   });
 
-  xdescribe( "#createRowArray", function() {
-    it("should do return an array of size x filled the element passed to it", function() {
-      expect(board.createColumnArray(3, "<td></td>")).toEqual(["<td></td>", "<td></td>", "<td></td>"]);
+  describe( "#initialize", function() {
+    it("should wire up the X event listeners on the model", function() {
+      var spy = spyOn(app.GameView.prototype, "drawX");
+      var gameView = new app.GameView;
+      gameView.game.trigger("X");
+      expect(spy).toHaveBeenCalled();
     });     
   });
 
-  describe( "#init", function() {
+  describe( "#initialize", function() {
+    it("should wire up the O event listeners on the model", function() {
+      var spy = spyOn(app.GameView.prototype, "drawO");
+      var gameView = new app.GameView;
+      gameView.game.trigger("O");
+      expect(spy).toHaveBeenCalled();
+    });     
+  });
+
+  describe( "#initialize", function() {
+    it("should wire up the tie event listeners on the model", function() {
+      var spy = spyOn(app.GameView.prototype, "tie");
+      var gameView = new app.GameView;
+      gameView.game.trigger("tie");
+      expect(spy).toHaveBeenCalled();
+    });     
+  });
+
+  describe( "#initialize", function() {
+    it("should wire up the win event listeners on the model", function() {
+      var spy = spyOn(app.GameView.prototype, "win")
+      var gameView = new app.GameView;
+      gameView.game.trigger("win");
+      expect(spy).toHaveBeenCalled();
+    });     
+  });
+
+  describe( "#initialize", function() {
+    it("should call render", function() {
+      var gameView = new app.GameView;
+      spyOn(gameView, "addIds");
+      gameView.initialize();
+      expect(gameView.addIds).toHaveBeenCalled();
+    });     
+  });
+
+  describe( "#initialize", function() {
+    it("should add the ids to the dom", function() {
+      var gameView = new app.GameView;
+      spyOn(gameView, "render");
+      gameView.initialize();
+      expect(gameView.render).toHaveBeenCalled();
+    });     
+  });
+
+  xdescribe( "#init", function() {
     it("should call the buildboard function", function() {
       spyOn(board, "buildBoard");
       board.init();
@@ -33,7 +73,7 @@ describe('board', function() {
     });     
   });
 
-  describe( "#buildBoard", function() {
+  xdescribe( "#buildBoard", function() {
     it("should build a board", function() {
       setFixtures('<body></body>');
       board.buildBoard();
@@ -42,7 +82,7 @@ describe('board', function() {
     });     
   });
 
-  describe( "#addIds", function() {
+  xdescribe( "#addIds", function() {
     it("should add ids to your elements", function() {
       setFixtures('<body></body>');
       board.buildBoard();
@@ -54,7 +94,7 @@ describe('board', function() {
     });     
   });
 
-  describe( "#updateCell", function() {
+  xdescribe( "#updateCell", function() {
     it("should add content to your element", function() {
       setFixtures('<body></body>');
       board.buildBoard();
@@ -64,7 +104,7 @@ describe('board', function() {
     });     
   });
 
-  describe( "#addEvents", function() {
+  xdescribe( "#addEvents", function() {
     it("should add click handlers to your elements", function() {
       setFixtures('<body></body>');
       board.buildBoard();
