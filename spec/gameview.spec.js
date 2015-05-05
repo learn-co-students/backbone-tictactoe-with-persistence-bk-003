@@ -1,3 +1,4 @@
+// THESE ARE THE TESTS FOR OO, NEED TO WRITE BACKBONE TESTS
 'use strict';
 describe('board', function() {
   // you should have 9 elements on the page
