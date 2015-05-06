@@ -65,53 +65,54 @@ describe('board', function() {
     });     
   });
 
-  xdescribe( "#init", function() {
-    it("should call the buildboard function", function() {
-      spyOn(board, "buildBoard");
-      board.init();
-      expect(board.buildBoard).toHaveBeenCalled();
+  describe( "#render & addIds", function() {
+    it("should create a board in HTML when its initialized", function() {
+      setFixtures("<body></body>"); 
+      var gameView = new app.GameView;
+      expect($("body")).toContainHtml('<table border="1" cellpadding="40"><tbody><tr><td id="0"></td><td id="1"></td><td id="2"></td></tr><tr><td id="3"></td><td id="4"></td><td id="5"></td></tr><tr><td id="6"></td><td id="7"></td><td id="8"></td></tr></tbody></table>');
     });     
   });
 
-  xdescribe( "#buildBoard", function() {
-    it("should build a board", function() {
-      setFixtures('<body></body>');
-      board.buildBoard();
-      var myElements = $(selector)
-      expect(myElements.size()).toEqual(9);
+  describe( "#handleClick", function() {
+    it("should tell the game what element was clicked", function() {
+      setFixtures("<body></body>");
+      var gameView = new app.GameView;
+      spyOn(gameView.game, "doTurn")
+      $("#3").click()
+      expect(gameView.game.doTurn).toHaveBeenCalledWith(3)
     });     
   });
 
-  xdescribe( "#addIds", function() {
+  xdescribe( "#drawO", function() {
     it("should add ids to your elements", function() {
-      setFixtures('<body></body>');
-      board.buildBoard();
-      board.addIds();
-      var myElements = $(selector);
-      myElements.each(function(index, element) {
-        expect($(element)).toHaveId(index);
-      });
+      // setFixtures('<body></body>');
+      // board.buildBoard();
+      // board.addIds();
+      // var myElements = $(selector);
+      // myElements.each(function(index, element) {
+      //   expect($(element)).toHaveId(index);
+      // });
     });     
   });
 
-  xdescribe( "#updateCell", function() {
+  xdescribe( "#drawX", function() {
     it("should add content to your element", function() {
-      setFixtures('<body></body>');
-      board.buildBoard();
-      board.addIds();
-      board.updateCell(0, "X");
-      expect($("#0")).toHaveHtml("X");
+      // setFixtures('<body></body>');
+      // board.buildBoard();
+      // board.addIds();
+      // board.updateCell(0, "X");
+      // expect($("#0")).toHaveHtml("X");
     });     
   });
 
   xdescribe( "#addEvents", function() {
     it("should add click handlers to your elements", function() {
-      setFixtures('<body></body>');
-      board.buildBoard();
-      board.addIds();
-      board.addEvents();
-      var myElements = $(selector); 
-      expect($(myElements[0])).toHandle("click");
+      // setFixtures('<body></body>');
+      // board.buildBoard();
+      // board.addIds();
+      // board.addEvents();
+      // var myElements = $(selector); 
+      // expect($(myElements[0])).toHandle("click");
     });     
   });
 });
