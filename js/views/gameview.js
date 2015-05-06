@@ -43,7 +43,7 @@
 		},
 
 		handleClick : function(e) {
-			var id = Number($(e.target).attr(id));
+			var id = Number($(e.target).attr("id"));
 			this.game.doTurn(id);
 		},
 
