@@ -42,8 +42,8 @@
 		  return Array.apply(null, new Array(size)).map(String.prototype.valueOf,element)
 		},
 
-		handleClick : function() {
-			var id = Number($(this).attr(id));
+		handleClick : function(e) {
+			var id = Number($(e.target).attr(id));
 			this.game.doTurn(id);
 		},
 
