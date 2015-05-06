@@ -21,7 +21,7 @@
 			this.$el.append("<table border='1' cellpadding='40'></table>")
 			this.$el.find('table').append(rows);
 			this.$el.find('tr').append(cells);
-			$("body").append(this.$el)
+			$("#container").append(this.$el)
 		},
 
 		addIds : function() {
