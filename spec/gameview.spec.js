@@ -1,5 +1,5 @@
 'use strict';
-describe('board', function() {
+describe('gameView', function() {
 
 
   describe( "#initialize", function() {
@@ -105,4 +105,26 @@ describe('board', function() {
       expect(spy).toHaveBeenCalledWith(3)    
     });     
   });
+
+  describe( "#showLastGame", function() {
+    it("should persist the last game to the model", function() {
+      setFixtures('<div id="container"></div>'); 
+      spyOn(window, "alert")
+      // spyOn(app.GameView.prototype)
+      var gameView = new app.GameView;
+      // X goes
+      gameView.game.doTurn(0);
+      // O goes
+      gameView.game.doTurn(1);
+      // X goes
+      gameView.game.doTurn(4);
+      // O goes
+      gameView.game.doTurn(2);
+      // X goes
+      gameView.game.doTurn(8);
+      $("#lastGame").click()
+      expect(window.alert).toHaveBeenCalledWith("XOO\n-X-\n--X\n");
+    });     
+  });
+
 });
