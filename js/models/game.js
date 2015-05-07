@@ -3,6 +3,7 @@
 	app.Game = Backbone.Model.extend({
 		defaults : {
 			turn : 0,
+			oldBoard : null,
 			board : [null, null, null,
 							null, null, null, 
 							null, null, null],
@@ -69,11 +70,46 @@
 				this.trigger(this.player(), id);
 				var state = this.gameOver()
 				if (state) {
+					this.saveGameState()
 					this.trigger(state, this.player());
 				}
 				this.incTurn();
 				return true;
 			}
-		}	
+		},
+		saveGameState : function() {
+			this.set("oldBoard", this.convertBlanks());
+		},
+		convertBlanks : function() {
+			return _.map(_.clone(this.get("board")), function (element) {
+				if (element) {
+					return element;
+				} else {
+					return "-";
+				}
+			});
+		},
+		row : function(start, end) {
+			return this.get("oldBoard").slice(start, end).join("") + "\n";
+		},
+		firstRow : function () {
+			return this.row(0,3);
+		},
+		secondRow : function () {
+			return this.row(3,6);
+		},
+		thirdRow : function () {
+			return this.row(6,9);
+		},
+		combineRows : function() {
+			return this.firstRow() + this.secondRow() + this.thirdRow();
+		},
+		lastGameString : function () {
+			if (this.combineRows().length > 3){
+				return this.combineRows();
+			} else {
+				return "No Last Game";
+			}
+		}
 	})
 })();

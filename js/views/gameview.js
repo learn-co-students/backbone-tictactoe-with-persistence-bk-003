@@ -2,7 +2,8 @@
 	var GameView = app.GameView = Backbone.View.extend({
 
 		events: {
-			"click" : "handleClick"
+			"click" : "handleClick",
+			"click #lastGame" : "showLastGame"
 		},
 
 		initialize : function() {
@@ -21,6 +22,7 @@
 			this.$el.append("<table border='1' cellpadding='40'></table>")
 			this.$el.find('table').append(rows);
 			this.$el.find('tr').append(cells);
+			this.$el.append('<button id="lastGame">Show Me Last Games Results!</button>')
 			$("#container").append(this.$el)
 		},
 
@@ -71,6 +73,9 @@
 
 		clearBoard : function() {
 			$("td").html("");
+		},
+		showLastGame : function() {
+			alert(this.game.lastGameString());
 		}
 	})
 })();
