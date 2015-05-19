@@ -203,8 +203,8 @@ describe('board', function() {
   });
 
   describe( "#showLastGame", function() {
-    it("should persist the last game to the model", function() {
-      setFixtures('<div id="container"></div>'); 
+    it("displays results of the last game if last game X won diagonally", function() {
+      setFixtures('<body><div id="message"></div><button id="lastGame">Show Me Last Games Results!</button><div id="lastGameBox"></div></body>');
       var gameView = new app.GameView;
       gameView.game.doTurn(0);
       gameView.game.doTurn(1);
@@ -236,6 +236,45 @@ describe('board', function() {
       // - X -
       // - - X
       expect($("#lastGameBox").html()).toEqual("XOO<br>-X-<br>--X");
+    });
+    it("displays results of the last game if last game was a tie", function() {
+      setFixtures('<body><div id="message"></div><button id="lastGame">Show Me Last Games Results!</button><div id="lastGameBox"></div></body>');
+      attachListeners();
+      
+      gameView.game.doTurn(0);
+      gameView.game.doTurn(1);
+      gameView.game.doTurn(2);
+      gameView.game.doTurn(3);
+      gameView.game.doTurn(5);
+      gameView.game.doTurn(4);
+      gameView.game.doTurn(6);
+      gameView.game.doTurn(8);
+      gameView.game.doTurn(7);
+      // _X_|_O_|_X_
+      // _O_|_O_|_X_
+      //  X | X | O
+      expect($("#message").html()).toEqual("Tie game");
+      // __|__|__
+      // __|__|__
+      //   |  | 
+      $("td").each(function() {
+        expect($(this).html()).toEqual("");
+      });
+      // ___|___|___
+      // ___|___|___
+      //    | X | O
+      gameView.game.doTurn(7);
+      gameView.game.doTurn(8);
+      expect($("#7").html()).toEqual("X");
+      expect($("#8").html()).toEqual("O");
+
+      // Show Me Last Games Results! (gets clicked)
+      $("#lastGame").click();
+
+      // X O X
+      // O O X
+      // X X O
+      expect($("#lastGameBox").html()).toEqual("XOX<br>OOX<br>XXO");
     });
   });
 });
