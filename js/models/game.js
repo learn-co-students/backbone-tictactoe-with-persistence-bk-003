@@ -17,25 +17,55 @@
         [2,5,8], 
         [0,4,8],
         [2,4,6]
-      ]
+      ],
+      lastGame: ''
     }},
     updateState: function(id) {
-      // your code here
+      var ary = this.get('board')
+      ary[id] = this.player()
+      this.set('board', ary)
     },
     tie: function() {
-      // your code here
+      return this.get('board').indexOf(null) == -1
     },
     gameOver: function() {
-      // your code here
+      if(this.tie()){
+        this.trigger('tie', this.player())
+      } else if(this.winnerCheck()) {
+        this.trigger('win', this.player())
+      } else {
+        return false
+      }
+      return true;
     },
     player: function() {
-      // your code here
+      return this.get('turn') % 2 == 0 ? 'X' : 'O';
     },
     winnerCheck: function() {
-      // your code here
+      var verdict = false
+      this.get('winningCombos').forEach(function(elem){
+        this.checkCells(elem) ? verdict = true : '';
+      }, this)
+      return verdict
+    },
+    checkCells: function(ary) {
+      var board = this.get('board');
+      for(var i=0;i<ary.length; i++) {
+        if (board[ary[i]] != this.player()) {
+          return false
+        } 
+      };
+        return true
     },
     doTurn: function(id) {
-      // your code here
+      this.updateState(id);
+      if (this.gameOver()){
+      } else {
+        this.trigger(this.player(), id)
+        this.trigger(this.player()) 
+        var turn = this.get('turn');
+        this.set('turn', turn+1);
+      }
     } 
   });
 })();
